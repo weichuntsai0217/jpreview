@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <title>jpreview.js DEMO</title>
+        <style>
+            div, h1{
+                padding: 0;
+                margin: 0;
+            }
+            .heading {
+                text-align: center;
+                margin-top: 50px;
+            }
+            .wrap {
+                width: 680px;
+                height: 360px;
+                border: 2px solid #bbb;
+                margin: 30px auto;
+                overflow: hidden;
+                position: relative;
+                text-align: center;
+                padding-top: 20px;
+            }
+            .large-height {
+                height: 600px
+            }
+            .preview {
+                width: 640px;
+                height: 430px;
+                margin: 0 auto;
+                overflow: hidden;
+                border: 2px dashed #bbb;
+                -moz-border-radius: 5px;
+                -webkit-border-radius: 5px;
+                border-radius: 5px;
+                padding-top: 25px;
+                text-align: center;
+                font: 36px bold 'Vollkorn';
+            }
+            .preview img {
+                width: 300px;
+                height: 150px;
+            }
+            
+        </style>
+    </head>
+    <body>
+        <div class="heading"><h1>jpreview.js DEMO</h1></div>
+        <div class="wrap large-height">
+            <div class="control">
+                <input type="file" name="input_files" multiple/>
+            </div>
+            <h2>Drop files on the following area.</h2>
+            <div class="preview">
+            </div>
+        </div>
+        <script type="text/javascript" src="lib/jquery/jquery-1.11.2.min.js"></script>
+        <script type="text/javascript" src="jpreview-1.0.0/jpreview.js"></script>
+        <script>
+            $(document).on('ready', function(e){
+                $('.preview').preview({
+                    'uploaderAttr': '[name="input_files"]'
+                });
+            });
+        </script>
+    </body>
+</html>
