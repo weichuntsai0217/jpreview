@@ -220,6 +220,9 @@
             var dragger;
             if ( tagName !== 'img' ) {
                 dragger = target;
+                dragger.css({
+                    'position': 'relative'
+                });
             } else if ( tagName === 'img') {
                 var pos = getPos(target, settings.initX, settings.initY),
                     size = getSize(target);
@@ -230,9 +233,14 @@
                 }
                 dragger = target.parent();
                 dragger.css({
-                    'padding': '0'
+                    'padding': '0',
+                    'position': 'relative'
+                });
+                target.css({
+                    'position':'absolute'
                 });
                 setLayout(dragger, pos, size);
+                setLayout(target, pos, size);
             }
             dragger.addClass(settings.dragger);
             dragger.on('mousedown', function(e){
@@ -278,6 +286,9 @@
 			var resizer;
 			if ( tagName !== 'img' ) {
                 resizer = target;
+                resizer.css({
+                    'position': 'relative'
+                });
                 resizer.addClass(settings.resizer);
                 addResizerControl(settings, resizer);
                 setResizerControl(settings, resizer);
@@ -299,23 +310,15 @@
 			}
             function setResizerImage(resizer, img, settings, pos){
                 var initSize = JSON.parse( img.attr('init-size') );
-                resizer.offset({
-                    'left': pos.x,
-                    'top': pos.y,
-                });
                 resizer.css({
-                    'width': getPixel(initSize.width),
-                    'height': getPixel(initSize.height),
-                    'padding': '0'
-                });
-                img.offset({
-                    'left': pos.x,
-                    'top': pos.y,
+                    'padding': '0',
+                    'position': 'relative'
                 });
                 img.css({
-                    'width': getPixel(initSize.width),
-                    'height': getPixel(initSize.height),
+                    'position':'absolute'
                 });
+                setLayout(resizer, pos, initSize);
+                setLayout(img, pos, initSize);
                 img.addClass(settings.resizerContent);
                 addResizerControl(settings, resizer);
                 setResizerControl(settings, resizer);
