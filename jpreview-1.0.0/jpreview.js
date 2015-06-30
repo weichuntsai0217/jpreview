@@ -66,7 +66,8 @@
         'confineInWrap': false
 	};
     var dndDefaults = {
-        'dropEvent': 'filesdropped'
+        'customEvent': 'filesdropped',
+        'handle': ''
     };
 	function getPixel(number) {
         if ( (typeof number) === 'number' ) {
@@ -567,10 +568,7 @@
             if ((typeof dropObj) !== 'object') {
                 return;
             }
-            var settings = $.extend(true, {}, dndDefaults);
-            if ( (typeof options) !== 'undefined' ) {
-                settings = $.extend(true, {}, settings, options);
-            }
+            var settings = $.extend(true, {}, dndDefaults, options);
             $(document).on('dragenter', function(e){
                 e.stopPropagation();
                 e.preventDefault();
@@ -598,7 +596,11 @@
             .on('drop', function(e){
                 e.preventDefault();
                 dropObj.files = e.originalEvent.dataTransfer.files;
-                $(this).trigger(settings.dropEvent);
+                if ( settings.handle === '' ) {
+                    $(this).trigger(settings.customEvent);
+                } else {
+                    $(settings.handle).trigger(settings.customEvent);
+                }
             });
         },
         editor: function(options){
@@ -675,7 +677,7 @@
     			});
             }
 			preview.dnd(dropObj);
-            preview.on(settings.dropEvent, function(e){
+            preview.on(settings.customEvent, function(e){
                 handleImage(dropObj.files);
             });
 			function handleImage(files) {
